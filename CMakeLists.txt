@@ -16,5 +16,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -g0")
 set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -g3")
 set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O3 -g0")
 
+aux_source_directory(util util_src)
+add_library(util STATIC ${util_src})
+
+include_directories(${PROJECT_SOURCE_DIR}/util)
+
 add_subdirectory(session1000)
+add_subdirectory(session2000)
+add_subdirectory(session3000)
 
