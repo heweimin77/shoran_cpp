@@ -1,10 +1,7 @@
 ﻿#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
+#include "gtest/gtest.h"
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -72,7 +69,7 @@ public:
     }
 };
 
-class TestSolution5 :public testing::Test
+class p005test :public testing::Test
 {
 public:
     virtual void SetUp()
@@ -84,27 +81,18 @@ public:
 };
 
 
-TEST_F(TestSolution5, Test1)
+TEST_F(p005test, Test1)
 {
-    vector<int> para = {1,3 };
-    vector<int> para2 = {2};
-    //int expect = 4;
-
     Solution s;
     auto actual = s.longestPalindrome("babad");
     EXPECT_EQ("bab", actual);
 }
-TEST_F(TestSolution5, Test2)
+TEST_F(p005test, Test2)
 {
-    vector<int> para = { 1,3 };
-    vector<int> para2 = { 2 };
-    //int expect = 4;
-
     Solution s;
     auto actual = s.longestPalindrome("cbbd");
     EXPECT_EQ("bb", actual);
 }
-
 
 }
 

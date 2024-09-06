@@ -1,10 +1,7 @@
-﻿#include <string>
+﻿#include <gtest/gtest.h>
+#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -24,7 +21,7 @@ public:
     }
 };
 
-class TestSolution :public testing::Test
+class P009Test :public testing::Test
 {
 public:
     virtual void SetUp()
@@ -36,7 +33,7 @@ public:
 };
 
 
-TEST_F(TestSolution, Test1)
+TEST_F(P009Test, Test1)
 {
 
     Solution s;
@@ -44,7 +41,7 @@ TEST_F(TestSolution, Test1)
     decltype(actual) expect = true;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(TestSolution, Test2)
+TEST_F(P009Test, Test2)
 {
 
     Solution s;
@@ -52,7 +49,7 @@ TEST_F(TestSolution, Test2)
     decltype(actual) expect = false;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(TestSolution, Test3)
+TEST_F(P009Test, Test3)
 {
 
     Solution s;

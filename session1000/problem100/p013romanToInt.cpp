@@ -1,11 +1,7 @@
-﻿#include <string>
-#include <array>
+﻿#include <gtest/gtest.h>
+#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -30,7 +26,7 @@ namespace {
     }
   };
 
-  class TestSolution :public testing::Test
+  class P013Test :public testing::Test
   {
   public:
     virtual void SetUp()
@@ -42,35 +38,35 @@ namespace {
   };
 
 
-  TEST_F(TestSolution, Test1)
+  TEST_F(P013Test, Test1)
   {
     Solution s;
     auto actual = s.romanToInt("III");
     decltype(actual) expect = 3;
     EXPECT_EQ(expect, actual);
   }
-  TEST_F(TestSolution, Test2)
+  TEST_F(P013Test, Test2)
   {
     Solution s;
     auto actual = s.romanToInt("IV");
     decltype(actual) expect = 4;
     EXPECT_EQ(expect, actual);
   }
-  TEST_F(TestSolution, Test3)
+  TEST_F(P013Test, Test3)
   {
     Solution s;
     auto actual = s.romanToInt("IX"); 
     decltype(actual) expect = 9;
     EXPECT_EQ(expect, actual);
   }
-  TEST_F(TestSolution, Test4)
+  TEST_F(P013Test, Test4)
   {
     Solution s;
     auto actual = s.romanToInt("LVIII"); 
     decltype(actual) expect = 58;
     EXPECT_EQ(expect, actual);
   }
-  TEST_F(TestSolution, Test5)
+  TEST_F(P013Test, Test5)
   {
     Solution s;
     auto actual = s.romanToInt("MCMXCIV");

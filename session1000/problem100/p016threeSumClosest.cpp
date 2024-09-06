@@ -1,11 +1,7 @@
-﻿#include <string>
-#include <array>
+﻿#include <gtest/gtest.h>
+#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -41,7 +37,7 @@ namespace {
     }
   };
 
-  class TestSolution :public testing::Test
+  class P016Test :public testing::Test
   {
   public:
     virtual void SetUp()
@@ -53,13 +49,14 @@ namespace {
   };
 
 
-  TEST_F(TestSolution, Test1)
+  TEST_F(P016Test, Test1)
   {
     Solution s;
     vector<vector<int>> matrix = { {1, 1, 1},{1, 0, 1},{1, 1, 1} };
     s.setZeroes(matrix);
     decltype(matrix) expect = { {1, 0, 1},{0, 0, 0},{1, 0, 1} };
-    EXPECT_EQ_COMPLEX_CONTAINER(expect, matrix);
+    //EXPECT_EQ_COMPLEX_CONTAINER(expect, matrix);
+    EXPECT_EQ(expect, matrix);
   }
 }
 

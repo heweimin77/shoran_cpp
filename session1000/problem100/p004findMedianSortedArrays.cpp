@@ -1,10 +1,7 @@
 ﻿#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
+#include "gtest/gtest.h"
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -36,10 +33,7 @@ public:
             auto xx = getFirstN(nums1, nums2, (cnt - 1) / 2) + getFirstN(nums1, nums2, cnt / 2);
             return xx / 2.0;
         }
- 
-
-
-        return 2.0;
+         return 2.0;
     }
     int getcount(vector<int>& nums1, vector<int>& nums2, int n) {
         auto it1 = lower_bound(nums1.begin(), nums1.end(), n);
@@ -64,7 +58,7 @@ public:
     }
 };
 
-class TestSolution4 :public testing::Test
+class p004Test :public testing::Test
 {
 public:
     virtual void SetUp()
@@ -76,24 +70,20 @@ public:
 };
 
 
-TEST_F(TestSolution4, Test1)
+TEST_F(p004Test, Test1)
 {
-    vector<int> para = {1,3 };
-    vector<int> para2 = {2};
-    //int expect = 4;
-
+    vector<int> nums1 = {1,3 };
+    vector<int> nums2 = {2};
     Solution s;
-    auto actual = s.findMedianSortedArrays(para, para2);
+    auto actual = s.findMedianSortedArrays(nums1, nums2);
     EXPECT_EQ(2.0, actual);
 }
-TEST_F(TestSolution4, Test2)
+TEST_F(p004Test, Test2)
 {
-    vector<int> para = { 1,3 };
-    vector<int> para2 = { 2,4 };
-    //int expect = 4;
-
+    vector<int> nums1 = { 1,3 };
+    vector<int> nums2 = { 2,4 };
     Solution s;
-    auto actual = s.findMedianSortedArrays(para, para2);
+    auto actual = s.findMedianSortedArrays(nums1, nums2);
     EXPECT_EQ(2.5, actual);
 }
 

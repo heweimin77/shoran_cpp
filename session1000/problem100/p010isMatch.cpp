@@ -1,10 +1,7 @@
-﻿#include <string>
+﻿#include <gtest/gtest.h>
+#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -90,7 +87,7 @@ namespace {
   };
 
 
-  class TestSolution :public testing::Test
+  class P010Test :public testing::Test
   {
   public:
     virtual void SetUp()
@@ -102,49 +99,49 @@ namespace {
   };
 
 
-  //TEST_F(TestSolution, Test1)
+  //TEST_F(P010Test, Test1)
   //{
   //  Solution s;
   //  auto actual = s.isMatch("aa", "a");
   //  decltype(actual) expect = false;
   //  ASSERT_EQ(expect, actual);
   //}
-  //TEST_F(TestSolution, Test2)
+  //TEST_F(P010Test, Test2)
   //{
   //  Solution s;
   //  auto actual = s.isMatch("aa", "a*");
   //  decltype(actual) expect = true;
   //  ASSERT_EQ(expect, actual);
   //}
-  //TEST_F(TestSolution, Test3)
+  //TEST_F(P010Test, Test3)
   //{
   //  Solution s;
   //  auto actual = s.isMatch("ab", ".*");
   //  decltype(actual) expect = true;
   //  ASSERT_EQ(expect, actual);
   //}
-  //TEST_F(TestSolution, Test4)
+  //TEST_F(P010Test, Test4)
   //{
   //  Solution s;
   //  auto actual = s.isMatch("aab", "c*a*b");
   //  decltype(actual) expect = true;
   //  ASSERT_EQ(expect, actual);
   //}
-  //TEST_F(TestSolution, Test5)
+  //TEST_F(P010Test, Test5)
   //{
   //  Solution s;
   //  auto actual = s.isMatch("mississippi", "mis*is*p*.");
   //  decltype(actual) expect = false;
   //  ASSERT_EQ(expect, actual);
   //}
-  //TEST_F(TestSolution, Test6)
+  //TEST_F(P010Test, Test6)
   //{
   //  Solution s;
   //  auto actual = s.isMatch("mississippi", "mis*is*ip*.");
   //  decltype(actual) expect = true;
   //  ASSERT_EQ(expect, actual);
   //}
-  TEST_F(TestSolution, Test7)
+  TEST_F(P010Test, Test7)
   {
     Solution s;
     auto actual = s.isMatch("a", ".*..");

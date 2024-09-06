@@ -1,10 +1,8 @@
-﻿#include <string>
+﻿#include <gtest/gtest.h>
+#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
 #include <map>
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -54,7 +52,7 @@ namespace {
     }
   };
 
-  class TestSolution :public testing::Test
+  class P011Test :public testing::Test
   {
   public:
     virtual void SetUp()
@@ -66,7 +64,7 @@ namespace {
   };
 
 
-  TEST_F(TestSolution, Test1)
+  TEST_F(P011Test, Test1)
   {
     Solution s;
     vector<int> height = {1,8,6,2,5,4,8,3,7};

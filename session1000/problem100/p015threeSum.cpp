@@ -1,11 +1,7 @@
-﻿#include <string>
-#include <array>
+﻿#include <gtest/gtest.h>
+#include <string>
 #include <vector>
-#include "gtest.h"
-#include <iostream>
-#include <map>
 #include <unordered_map>
-#include <unordered_set>
 #include <algorithm>
 
 using namespace std;
@@ -69,7 +65,7 @@ namespace {
     }
   };
 
-  class TestSolution :public testing::Test
+  class P015Test :public testing::Test
   {
   public:
     virtual void SetUp()
@@ -80,22 +76,21 @@ namespace {
     }
   };
 
-
-  TEST_F(TestSolution, Test1)
+  TEST_F(P015Test, Test1)
   {
     Solution s;
     vector<int> nums = { -1,0,1,2,-1,-4};
     auto actual = s.threeSum(nums);
     decltype(actual) expect = {{-1,-1,2},{-1,0,1}};
-    EXPECT_EQ_COMPLEX_CONTAINER(expect, actual);
+    EXPECT_EQ(expect, actual);
   }
-  TEST_F(TestSolution, Test2)
+  TEST_F(P015Test, Test2)
   {
     Solution s;
     vector<int> nums = {0};
     auto actual = s.threeSum(nums);
     decltype(actual) expect = {};
-    EXPECT_EQ_COMPLEX_CONTAINER(expect, actual);
+    EXPECT_EQ(expect, actual);
   }
 
 }
