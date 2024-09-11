@@ -10,13 +10,13 @@ if __name__ == '__main__':
     if folder[-1] != '/': folder += '/'
     for root, dirs, files in os.walk(folder):
         for fname in files:
-            if fname[0] != 'p':
-                cmd = "mv " + folder + fname + " " + folder + "p" + fname
+            if fname[3] != '.':
+                cmd = "mv " + folder + fname + " " + folder + fname[:3] + '.' + fname[3:]
                 print(cmd)
                 os.system(cmd)
-                fname = "p" + fname
-            tag = "P"
-            for x in fname[1:]:
+                fname = fname[:3] + '.' + fname[3:]
+            tag = "Lcp"
+            for x in fname[4:]:
                 if '0' <= x <= '9':
                     tag += x
                 else:

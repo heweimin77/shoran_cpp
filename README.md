@@ -12,9 +12,4 @@ make -j32
 sudo make install  
 sudo update-alternatives --install /usr/bin/cmake  cmake /usr/local/bin/cmake  1 –force  
 
-
-
-
-
-
 ## TODO

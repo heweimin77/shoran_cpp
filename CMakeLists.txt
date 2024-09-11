@@ -11,6 +11,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
+set(CMAKE_CXX_STANDARD 17)
+
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -g3")
 set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -g0")
 set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -g3")
@@ -18,10 +20,23 @@ set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O3 -g0")
 
 aux_source_directory(util util_src)
 add_library(util STATIC ${util_src})
-
 include_directories(${PROJECT_SOURCE_DIR}/util)
+
+aux_source_directory(interview interview_src)
+add_executable(interview ${interview_src})
+target_link_libraries(interview gtest_main gtest pthread util)
+
+aux_source_directory(lcp lcp_src)
+add_executable(lcp ${lcp_src})
+target_link_libraries(lcp gtest_main gtest pthread util)
+
+aux_source_directory(todo todo_src)
+add_executable(todo ${todo_src})
+target_link_libraries(todo gtest_main gtest pthread util)
 
 add_subdirectory(session1000)
 add_subdirectory(session2000)
 add_subdirectory(session3000)
+add_subdirectory(session4000)
+
 
