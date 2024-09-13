@@ -6,6 +6,8 @@ project(shoran_cpp VERSION 1.0.1 DESCRIPTION "shoran leetcode")
 # /usr/lib/x86_64-linux-gnu/libgtest.a
 # /usr/lib/x86_64-linux-gnu/libgtest_main.a
 #link_directories("/usr/src/googletest/googletest/")
+include_directories($ENV{CPP_INCLUDE})
+link_directories($ENV{CPP_LIB})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
