@@ -9,6 +9,26 @@ class Solution {
 public:
     int maximumRobots(vector<int> &chargeTimes, vector<int> &runningCosts, long long budget)
     {
+        int ans = 0;
+        int n = chargeTimes.size();
+        deque<int> charges;
+        int j = 0;
+        long long sum = 0;
+        for (int i = 0; i < n; ++i) {
+            while (!charges.empty() && charges.back() < chargeTimes[i]) charges.pop_back();
+            charges.push_back(chargeTimes[i]);
+            sum += runningCosts[i];
+            while (j <= i && sum * (i - j + 1) + charges[0] > budget) {
+                sum -= runningCosts[j];
+                if (chargeTimes[j] == charges[0]) charges.pop_front();
+                ++j;
+            }
+            ans = max(ans, i - j + 1);
+        }
+        return ans;
+    }
+    int maximumRobots2(vector<int> &chargeTimes, vector<int> &runningCosts, long long budget)
+    {
         int r = 0;
         int n = chargeTimes.size();
         priority_queue<pair<int, int>> charges;
@@ -49,7 +69,7 @@ TEST_F(P2398Test, Test1)
     decltype(actual) expect = 3;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(P2398Test, TestMain)
+TEST_F(P2398Test, Test2)
 {
     vector<int> chargeTimes = { 8,76,74,9,75,71,71,42,15,58,88,38,56,59,10,11 };
     vector<int> runningCosts = { 1,92,41,63,22,37,37,8,68,97,39,59,45,50,29,37 };
