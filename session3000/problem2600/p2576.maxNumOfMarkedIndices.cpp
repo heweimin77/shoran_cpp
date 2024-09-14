@@ -20,7 +20,7 @@ public:
     }
 };
 
-class PTest : public testing::Test
+class P2576Test : public testing::Test
 {
 public:
     virtual void SetUp()
@@ -31,7 +31,7 @@ public:
     }
 };
 
-TEST_F(PTest, Test1)
+TEST_F(P2576Test, Test1)
 {
     Solution s;
     vector<int> nums = {3,5,2,4};
@@ -39,7 +39,7 @@ TEST_F(PTest, Test1)
     decltype(actual) expect = 2;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(PTest, Test2)
+TEST_F(P2576Test, Test2)
 {
     Solution s;
     vector<int> nums = {9,2,5,4};
@@ -47,7 +47,7 @@ TEST_F(PTest, Test2)
     decltype(actual) expect = 4;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(PTest, Test3)
+TEST_F(P2576Test, Test3)
 {
     Solution s;
     vector<int> nums = {7,6,8};
