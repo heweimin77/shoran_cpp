@@ -3,15 +3,12 @@
 using namespace std;
 
 namespace {
-class AutoRun {
-public:
-    AutoRun() {
-        ios::sync_with_stdio(false);
-        cin.tie(nullptr);
-        cout.tie(nullptr);
-    }
-
-} autorun;
+static auto autorun = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+} ();
 class Solution {
 public:
     string convert(string s, int numRows) {
