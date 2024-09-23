@@ -21,7 +21,9 @@ set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -g3")
 set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -O3 -g0")
 
 aux_source_directory(util util_src)
-add_library(util STATIC ${util_src})
+add_library(util STATIC ${util_src}
+        util/ListNode.cpp
+        util/ListNode.h)
 include_directories(${PROJECT_SOURCE_DIR}/util)
 
 aux_source_directory(interview interview_src)

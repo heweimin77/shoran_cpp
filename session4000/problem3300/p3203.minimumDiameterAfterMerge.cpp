@@ -10,7 +10,6 @@ public:
         cin.tie(nullptr);
         cout.tie(nullptr);
     }
-
 } autorun;
 class Solution {
 public:
