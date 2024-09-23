@@ -31,5 +31,5 @@ if __name__ == '__main__':
                 nname = fname[:4] + '.' + fname[4:]
                 cmd = "mv " + folder + fname + " " + folder + nname
                 print(cmd)
-                #os.system(cmd)
+                os.system(cmd)
             #changeTestName()
