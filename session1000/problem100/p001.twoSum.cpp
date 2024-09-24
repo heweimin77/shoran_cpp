@@ -23,18 +23,33 @@ public:
         return {};
     }
 };
-
-class PTest : public testing::Test
+class P001Test : public testing::Test
 {
 public:
     virtual void SetUp() {}
     virtual void TearDown() {}
 };
 
-TEST_F(PTest, Test1) {
+TEST_F(P001Test, Test1) {
     Solution s;
     vector<int> nums = {2,7,11,15};
     int target = 9;
+    auto actual = s.twoSum(nums, target);
+    decltype(actual) expect = {0, 1};
+    EXPECT_EQ(expect, actual);
+}
+TEST_F(P001Test, Test2) {
+    Solution s;
+    vector<int> nums = {3,2,4};
+    int target = 6;
+    auto actual = s.twoSum(nums, target);
+    decltype(actual) expect = {1, 2};
+    EXPECT_EQ(expect, actual);
+}
+TEST_F(P001Test, Test3) {
+    Solution s;
+    vector<int> nums = {3, 3};
+    int target = 6;
     auto actual = s.twoSum(nums, target);
     decltype(actual) expect = {0, 1};
     EXPECT_EQ(expect, actual);
