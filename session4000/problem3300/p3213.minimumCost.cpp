@@ -1,6 +1,7 @@
 ﻿#include <gtest/gtest.h>
 #include <unordered_set>
 #include "DictTree.h"
+#include "StringHash.h"
 
 using namespace std;
 
@@ -12,55 +13,19 @@ static auto autorun = []() {
     return 0;
 } ();
 
-class StringHash {
-public:
-    using ValueType = long long;
-    StringHash(int b, int n, int m) : bbase(n) {
-        base = b;
-        mod = m;
-        int x = 1;
-        for (int i = 0; i < bbase.size(); ++i) {
-            bbase[i] = x;
-            x *= base;
-            x %= mod;
-        }
-    }
-    ValueType hash(const std::string &w, int start, int end) {
-        int ans = 0;
-        for (int i = start; i < end; ++i) {
-            ans *= base;
-            ans += w[i] - 'a';
-            ans %= mod;
-        }
-        return ans;
-    }
-    ValueType rehash(long long hash, char add, char del, int n) {
-        int a = add - 'a', d = del - 'a';
-        hash -= d * bbase[n-1];
-        hash *= base;
-        hash += a;
-        hash %= mod;
-        if (hash < 0) hash += mod;
-        return hash;
-    }
-
-private:
-    ValueType base;
-    ValueType mod;
-    vector<ValueType> bbase;
-};
-
 class Solution {
+
 public:
     int minimumCost(string target, vector<string>& words, vector<int>& costs) {
-        size_t xn = 0;
-        for (auto &w : words) xn = max(xn, w.size());
-        StringHash sh(26, xn, (int)(10e9 + 7));
-        unordered_map<int, unordered_map<long long, int>> lenwords;
+        int n = target.length();
+        const int MOD = 1'070'777'777;
+        const int BASE = 26;
+        StringHash sh(BASE, MOD);
+        unordered_map<int, unordered_map<int, int>> lenwords;
         for (int i = 0; i < words.size(); ++i) {
             auto &w = words[i];
             auto &lenword = lenwords[w.size()];
-            int hash = sh.hash(w, 0, w.size());
+            auto hash = sh.hash(w, 0, w.size());
             auto it = lenword.find(hash);
             if (it == lenword.end()) {
                 lenword.insert({hash, costs[i]});
@@ -69,41 +34,76 @@ public:
             }
         }
 
-        int n = target.size();
-        vector<vector<pair<int,int>>> nexts(n);
-        for (auto &x : lenwords) {
-            int len = x.first;
-            if (len > target.size()) continue;
-            auto hash = sh.hash(target, 0, len);
-            auto &wset = lenwords[len];
-            auto it = wset.find(hash);
-            if (it != wset.end()) {
-                nexts[0].push_back({len, it->second});
-            }
-            for (int i = 0; i + len < n; ++i) {
-                hash = sh.rehash(hash, target[i+len], target[i], len);
-                auto it = wset.find(hash);
-                if (it != wset.end()) {
-                    nexts[i+1].push_back({len, it->second});
+        vector<int> prehash = sh.get_prehash(target);
+        vector<int> answers(n + 1, INT_MAX);
+        answers[0] = 0;
+        for (int i = 1; i <= n; ++i) {
+            for (auto &[len, hashcost]: lenwords) {
+                if (i >= len && answers[i - len] != INT_MAX) {
+                    auto hash = sh.get_hash(prehash, i - len, i);
+                    if (hashcost.contains(hash)) {
+                        answers[i] = min(answers[i], answers[i - len] + hashcost[hash]);
+                    }
                 }
             }
         }
 
-        vector<int> answers(n + 1, INT_MAX);
-        answers[0] = 0;
-        for (int i = 0; i < n; ++i) {
-            if (answers[i] == INT_MAX) continue;
-            for (auto &ns : nexts[i]) {
-                int ni = i + ns.first;
-                answers[ni] = min(answers[ni], answers[i] + ns.second);
+        return answers[n] == INT_MAX ? -1 : answers[n];
+    }
+
+    int minimumCost2(string target, vector<string>& words, vector<int>& costs) {
+        int n = target.length();
+
+        // 多项式字符串哈希（方便计算子串哈希值）
+        // 哈希函数 hash(s) = s[0] * base^(n-1) + s[1] * base^(n-2) + ... + s[n-2] * base + s[n-1]
+        const int MOD = 1'070'777'777;
+        const int BASE = 26;
+        vector<int> pow_base(n + 1); // pow_base[i] = base^i
+        vector<int> pre_hash(n + 1); // 前缀哈希值 pre_hash[i] = hash(s[:i])
+        pow_base[0] = 1;
+        for (int i = 0; i < n; i++) {
+            pow_base[i + 1] = (long long) pow_base[i] * BASE % MOD;
+            pre_hash[i + 1] = ((long long) pre_hash[i] * BASE + target[i] - 'a') % MOD; // 秦九韶算法计算多项式哈希
+        }
+
+        // 计算 target[l] 到 target[r-1] 的哈希值
+        auto sub_hash = [&](int l, int r) {
+            return ((pre_hash[r] - (long long) pre_hash[l] * pow_base[r - l]) % MOD + MOD) % MOD;
+        };
+
+        map<int, unordered_map<int, int>> min_cost; // 长度 -> 哈希值 -> 最小成本
+        for (int i = 0; i < words.size(); i++) {
+            long long h = 0;
+            for (char b : words[i]) {
+                h = (h * BASE + b - 'a') % MOD;
+            }
+            int m = words[i].length();
+            if (!min_cost[m].contains(h)) {
+                min_cost[m][h] = costs[i];
+            } else {
+                min_cost[m][h] = min(min_cost[m][h], costs[i]);
             }
         }
-        return answers[n] == INT_MAX ? -1 : answers[n];
+
+        vector<int> f(n + 1, INT_MAX / 2);
+        f[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (auto& [len, mc] : min_cost) {
+                if (len > i) {
+                    break;
+                }
+                auto it = mc.find(sub_hash(i - len, i));
+                if (it != mc.end()) {
+                    f[i] = min(f[i], f[i - len] + it->second);
+                }
+            }
+        }
+        return f[n] == INT_MAX / 2 ? -1 : f[n];
     }
     int minimumCost750of808(string target, vector<string>& words, vector<int>& costs) {
         size_t xn = 0;
         for (auto &w : words) xn = max(xn, w.size());
-        StringHash sh(26, xn, 9973);
+        StringHash sh(26, 9973);
         unordered_map<int, unordered_map<int, unordered_set<string>>> lenwords;
         unordered_map<string, int>  wordcosts;
         for (int i = 0; i < words.size(); ++i) {
