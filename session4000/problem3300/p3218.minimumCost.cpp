@@ -1,4 +1,5 @@
 ﻿#include <gtest/gtest.h>
+#include <climits>
 
 using namespace std;
 

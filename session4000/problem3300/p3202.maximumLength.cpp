@@ -33,7 +33,7 @@ public:
         return ans;
     }
 };
-class P3201Test : public testing::Test
+class PTest3202 : public testing::Test
 {
 public:
     virtual void SetUp()
@@ -44,7 +44,7 @@ public:
     }
 };
 
-TEST_F(P3201Test, Test1)
+TEST_F(PTest3202, Test1)
 {
     Solution s;
     vector<int> nums = {1,2,3,4,5};
@@ -53,7 +53,7 @@ TEST_F(P3201Test, Test1)
     decltype(actual) expect = 5;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(P3201Test, Test2)
+TEST_F(PTest3202, Test2)
 {
     Solution s;
     vector<int> nums = {1,4,2,3,1,4};
