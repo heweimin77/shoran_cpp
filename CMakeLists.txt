@@ -27,7 +27,9 @@ add_library(util STATIC ${util_src}
         util/DictTree.cpp
         util/DictTree.h
         util/StringHash.cpp
-        util/StringHash.h)
+        util/StringHash.h
+        util/Math.cpp
+        util/Math.h)
 include_directories(${PROJECT_SOURCE_DIR}/util)
 
 aux_source_directory(interview interview_src)
