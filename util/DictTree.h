@@ -51,6 +51,19 @@ public:
         }
         return ans;
     }
+    int match_len(const string::iterator begin, const string::iterator end) {
+        auto m = begin;
+        DictTree *now = this;
+        for (auto x = begin; x != end; ++x) {
+            auto it = now->nexts.find(*m);
+            if (it == now->nexts.end()) {
+                break;
+            }
+            ++m;
+            now = it->second;
+        }
+        return m - begin;
+    }
 
 private:
     unordered_map<char, DictTree*> nexts;
