@@ -23,7 +23,7 @@ public:
     }
 };
 
-class PTest : public testing::Test
+class PTest2414 : public testing::Test
 {
 public:
     virtual void SetUp()
@@ -34,14 +34,14 @@ public:
     }
 };
 
-TEST_F(PTest, Test1)
+TEST_F(PTest2414, Test1)
 {
     Solution s;
     auto actual = s.longestContinuousSubstring("abacaba");
     decltype(actual) expect = 2;
     EXPECT_EQ(expect, actual);
 }
-TEST_F(PTest, Test2)
+TEST_F(PTest2414, Test2)
 {
     Solution s;
     auto actual = s.longestContinuousSubstring("abcde");
