@@ -18,7 +18,7 @@ public:
             for (auto x1: nums1) {
                 if (x1 % x2 == 0) ++ans;
             }
-
+        }
         return ans;
     }
 };
